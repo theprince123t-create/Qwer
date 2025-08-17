@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Overlay</title>
+    <style>
+        body {
+            background-color: transparent;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            color: white;
+        }
+
+        .overlay-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 1000;
+        }
+
+        .main-scoreboard-bar {
+            width: 90%;
+            background: #0D47A1; /* Dark blue background */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            height: 50px;
+            font-size: 14px;
+        }
+
+        .left-section, .right-section, .center-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .center-section {
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .team-logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+
+        .team-details {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+        }
+
+        .player-name {
+            font-weight: bold;
+        }
+
+        .score-data {
+            font-size: 11px;
+        }
+        .team-initials {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFC107;
+        }
+
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .overs {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .crr-info {
+            font-size: 11px;
+            margin-top: -5px;
+        }
+
+        .dots {
+            display: flex;
+            gap: 3px;
+            margin-left: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50; /* Green dot for runs */
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .dot.filled {
+            opacity: 1;
+        }
+
+        .live-logo {
+            background: #4A148C;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        .live-text {
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay-container">
+        <div class="main-scoreboard-bar">
+            <div class="left-section">
+                <img src="https://i.ibb.co/L5QdG7Q/logo.png" alt="Team Logo" class="team-logo">
+                <div class="team-details">
+                    <span class="player-name">Ranchhod Reda...</span> <span class="score-data">55 (28)</span>
+                    <br>
+                    <span class="player-name">Lokendra Singh</span> <span class="score-data">2 (2)</span>
+                </div>
+            </div>
+
+            <div class="center-section">
+                <div class="team-score">
+                    <span class="team-initials">RR</span>
+                    <span class="score">75-1</span>
+                    <span class="overs">8.1 (8)</span>
+                </div>
+                <div class="crr-info">
+                    <span class="crr-text">CRR:</span>
+                    <span class="crr-value">9.26</span>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <div class="team-details">
+                    <span class="player-name">LM</span> <span class="score-data">Meer Khan</span>
+                </div>
+                <div class="dots">
+                    <span class="dot filled"></span>
+                    <span class="dot filled"></span>
+                    <span class="dot filled"></span>
+                    <span class="dot filled"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="live-logo">
+                    <span class="live-text">PRISM Live</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+  </html>
