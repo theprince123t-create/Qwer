@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Overlay</title>
+    <title>Live Cricket Overlay</title>
     <style>
         body {
             background-color: transparent;
@@ -27,7 +27,7 @@
 
         .main-scoreboard-bar {
             width: 90%;
-            background: #0D47A1; /* Dark blue background */
+            background: #0D47A1;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -101,7 +101,7 @@
         .dot {
             width: 8px;
             height: 8px;
-            background-color: #4CAF50; /* Green dot for runs */
+            background-color: #4CAF50;
             border-radius: 50%;
             opacity: 0.5;
         }
@@ -129,41 +129,38 @@
             <div class="left-section">
                 <img src="https://i.ibb.co/L5QdG7Q/logo.png" alt="Team Logo" class="team-logo">
                 <div class="team-details">
-                    <span class="player-name">Ranchhod Reda...</span> <span class="score-data">55 (28)</span>
+                    <span id="striker-name-display" class="player-name"></span> <span id="striker-stats" class="score-data"></span>
                     <br>
-                    <span class="player-name">Lokendra Singh</span> <span class="score-data">2 (2)</span>
+                    <span id="non-striker-name-display" class="player-name"></span> <span id="non-striker-stats" class="score-data"></span>
                 </div>
             </div>
 
             <div class="center-section">
                 <div class="team-score">
-                    <span class="team-initials">RR</span>
-                    <span class="score">75-1</span>
-                    <span class="overs">8.1 (8)</span>
+                    <span id="team-initials-display" class="team-initials"></span>
+                    <span id="score-display" class="score"></span>
+                    <span id="overs-display" class="overs"></span>
                 </div>
                 <div class="crr-info">
                     <span class="crr-text">CRR:</span>
-                    <span class="crr-value">9.26</span>
+                    <span id="crr-value-display" class="crr-value"></span>
                 </div>
             </div>
 
             <div class="right-section">
                 <div class="team-details">
-                    <span class="player-name">LM</span> <span class="score-data">Meer Khan</span>
+                    <span id="bowler-initials-display" class="player-name"></span> <span id="bowler-name-display" class="score-data"></span>
                 </div>
-                <div class="dots">
-                    <span class="dot filled"></span>
-                    <span class="dot filled"></span>
-                    <span class="dot filled"></span>
-                    <span class="dot filled"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
+                <div id="dots-container" class="dots">
+                    </div>
                 <div class="live-logo">
-                    <span class="live-text">PRISM Live</span>
+                    <span class="live-text">RANJEET Live</span>
                 </div>
             </div>
         </div>
     </div>
-</body>
-  </html>
+
+    <script>
+        function fetchScoreboardData() {
+            fetch('/live-data')
+                .
