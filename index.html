@@ -13,7 +13,6 @@
             overflow: hidden;
             color: white;
         }
-
         .overlay-container {
             position: absolute;
             bottom: 0;
@@ -24,7 +23,6 @@
             align-items: flex-end;
             z-index: 1000;
         }
-
         .main-scoreboard-bar {
             width: 90%;
             background: #0D47A1;
@@ -37,36 +35,30 @@
             height: 50px;
             font-size: 14px;
         }
-
         .left-section, .right-section, .center-section {
             display: flex;
             align-items: center;
         }
-
         .center-section {
             flex-direction: column;
             justify-content: center;
             text-align: center;
             padding: 0 20px;
         }
-
         .team-logo {
             width: 40px;
             height: 40px;
             margin-right: 10px;
             border-radius: 50%;
         }
-
         .team-details {
             display: flex;
             flex-direction: column;
             font-size: 12px;
         }
-
         .player-name {
             font-weight: bold;
         }
-
         .score-data {
             font-size: 11px;
         }
@@ -75,29 +67,24 @@
             font-weight: bold;
             color: #FFC107;
         }
-
         .score {
             font-size: 20px;
             font-weight: bold;
             margin: 0 10px;
         }
-
         .overs {
             font-size: 14px;
             font-weight: bold;
         }
-
         .crr-info {
             font-size: 11px;
             margin-top: -5px;
         }
-
         .dots {
             display: flex;
             gap: 3px;
             margin-left: 10px;
         }
-
         .dot {
             width: 8px;
             height: 8px;
@@ -105,18 +92,15 @@
             border-radius: 50%;
             opacity: 0.5;
         }
-
         .dot.filled {
             opacity: 1;
         }
-
         .live-logo {
             background: #4A148C;
             padding: 5px 10px;
             border-radius: 5px;
             margin-left: 10px;
         }
-
         .live-text {
             font-weight: bold;
             font-size: 14px;
@@ -134,7 +118,6 @@
                     <span id="non-striker-name-display" class="player-name"></span> <span id="non-striker-stats" class="score-data"></span>
                 </div>
             </div>
-
             <div class="center-section">
                 <div class="team-score">
                     <span id="team-initials-display" class="team-initials"></span>
@@ -146,7 +129,6 @@
                     <span id="crr-value-display" class="crr-value"></span>
                 </div>
             </div>
-
             <div class="right-section">
                 <div class="team-details">
                     <span id="bowler-initials-display" class="player-name"></span> <span id="bowler-name-display" class="score-data"></span>
@@ -154,13 +136,53 @@
                 <div id="dots-container" class="dots">
                     </div>
                 <div class="live-logo">
-                    <span class="live-text">RANJEET Live</span>
+                    <span class="live-text">PRISM Live</span>
                 </div>
             </div>
         </div>
     </div>
-
     <script>
         function fetchScoreboardData() {
             fetch('/live-data')
-                .
+                .then(response => response.json())
+                .then(data => {
+                    const miniScorecard = data.pageProps.miniScorecard.data;
+                    const battingTeam = miniScorecard.team_a;
+                    const bowlingTeam = miniScorecard.team_b;
+                    const battingInnings = battingTeam.innings[0];
+                    const strikerBatsman = miniScorecard.batsmen.sb;
+                    const nonStrikerBatsman = miniScorecard.batsmen.nsb;
+                    const bowler = miniScorecard.bowlers.sb;
+                    
+                    document.getElementById('striker-name-display').textContent = strikerBatsman.name;
+                    document.getElementById('striker-stats').textContent = `${strikerBatsman.runs} (${strikerBatsman.balls})`;
+                    document.getElementById('non-striker-name-display').textContent = nonStrikerBatsman.name;
+                    document.getElementById('non-striker-stats').textContent = `${nonStrikerBatsman.runs} (${nonStrikerBatsman.balls})`;
+                    document.getElementById('team-initials-display').textContent = battingTeam.logo.split('/').pop().split('.')[0];
+                    document.getElementById('score-display').textContent = `${battingInnings.total_run}-${battingInnings.total_wicket}`;
+                    document.getElementById('overs-display').textContent = battingInnings.overs_played + ' Ov';
+                    document.getElementById('crr-value-display').textContent = battingInnings.summary.rr;
+                    document.getElementById('bowler-initials-display').textContent = bowlingTeam.logo.split('/').pop().split('.')[0];
+                    document.getElementById('bowler-name-display').textContent = bowler.name;
+                    
+                    const dotsContainer = document.getElementById('dots-container');
+                    dotsContainer.innerHTML = '';
+                    const ballsInOver = parseInt(battingInnings.overs_played.split('.')[1]);
+                    for (let i = 0; i < 6; i++) {
+                        const dot = document.createElement('span');
+                        dot.classList.add('dot');
+                        if (i < ballsInOver) {
+                            dot.classList.add('filled');
+                        }
+                        dotsContainer.appendChild(dot);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+        setInterval(fetchScoreboardData, 3000);
+        fetchScoreboardData();
+    </script>
+</body>
+</html>
